@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">KalkulatorPrzesunieciaDaty</string>
+    <string name="Button">Wybierz</string>
+    <string name="Button2">Zamknij</string>
+    <string name="Hint">Wprowadź wartość przesunięcia</string>
+    <string name="Year">Lata</string>
+    <string name="Month">Miesiące</string>
+    <string name="Day">Dni</string>
+    <string name="Week">Tygodnie</string>
+    <string name="Hour">Godziny</string>
+    <string name="Warning">Pole wartości przesunięcia nie może być puste!</string>
+    <string name="Selected">Wybrana data:</string>
+    <string name="Shifted">Przesunięta data:</string>
+    <string name="Checked">Wprowadź ręcznie</string>
+    <string name="Date">yyyy-MM-dd HH:mm</string>
+    <string name="Invalid_Date_Format">Wprowadź poprawny format daty</string>
+    <string name="Invalid_Date">Wprowadź poprawną datę</string>
+    <string-array name="offset_units">
+        <item>Godzina</item>
+        <item>Dzień</item>
+        <item>Tydzień</item>
+        <item>Miesiąc</item>
+        <item>Rok</item>
+    </string-array>
+    <string name="DropHint">Wybierz jednostkę: </string>
+    <string name="Warning_Invalid">Pole może zawierać tylko cyfry</string>
+</resources>

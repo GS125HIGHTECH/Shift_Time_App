@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">DateOffsetCalculator</string>
+    <string name="Button">Choose</string>
+    <string name="Button2">Close</string>
+    <string name="Hint">Insert shift value</string>
+    <string name="Year">Years</string>
+    <string name="Month">Months</string>
+    <string name="Day">Days</string>
+    <string name="Week">Weeks</string>
+    <string name="Hour">Hours</string>
+    <string name="Warning">Shift value field cannot be empty!</string>
+    <string name="Selected">"Selected date: "</string>
+    <string name="Shifted">"Shifted date: "</string>
+    <string name="Checked">Manual mode</string>
+    <string name="Date">yyyy-MM-dd HH:mm</string>
+    <string name="Invalid_Date_Format">Please enter the correct date format</string>
+    <string name="Invalid_Date">Please enter a valid date</string>
+    <string-array name="offset_units">
+        <item>Hour</item>
+        <item>Day</item>
+        <item>Week</item>
+        <item>Month</item>
+        <item>Year</item>
+    </string-array>
+    <string name="DropHint">Select unit: </string>
+    <string name="Warning_Invalid">Field can only contain numbers</string>
+</resources>
