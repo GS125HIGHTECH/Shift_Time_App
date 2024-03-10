@@ -9,8 +9,8 @@
     <string name="Week">Tygodnie</string>
     <string name="Hour">Godziny</string>
     <string name="Warning">Pole wartości przesunięcia nie może być puste!</string>
-    <string name="Selected">Wybrana data:</string>
-    <string name="Shifted">Przesunięta data:</string>
+    <string name="Selected">"Wybrana data: "</string>
+    <string name="Shifted">"Przesunięta data: "</string>
     <string name="Checked">Wprowadź ręcznie</string>
     <string name="Date">yyyy-MM-dd HH:mm</string>
     <string name="Invalid_Date_Format">Wprowadź poprawny format daty</string>
