@@ -16,6 +16,9 @@ import com.example.kalkulatorprzesunieciadaty.viewModel.MainViewModel
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
+import java.util.regex.Matcher
+import java.util.regex.Pattern
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -25,6 +28,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var selectedDateTime2: Calendar
     private var offsetValue: Int = 0
     private var toast: Toast? = null
+    private val datePattern = "^(\\d{4})-(0?[1-9]|1[0-2])-(0?[1-9]|[12][0-9]) (\\d{2}):(\\d{2})$"
+    private val pattern: Pattern = Pattern.compile(datePattern)
+
 
     @RequiresApi(Build.VERSION_CODES.Q)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,16 +61,19 @@ class MainActivity : AppCompatActivity() {
         }
 
         dateEdit.setOnEditorActionListener { _, actionId, _ ->
+            unitEdit.clearFocus()
             if (actionId == EditorInfo.IME_ACTION_DONE &&
                 handleEditText() &&
                 checkBox.isChecked &&
                 dateEdit.text.isNotEmpty()) {
                 dateEdit.clearFocus()
+
+                unitEdit.clearFocus()
                 val enteredDate = dateEdit.text.toString().trim()
                 val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
                 try {
                     val parsedDate = sdf.parse(enteredDate)
-                    if (parsedDate != null) {
+                    if (parsedDate != null && isValidDate(dateEdit.text.toString())) {
                         selectedDateTime1 = Calendar.getInstance()
                         selectedDateTime1.time = parsedDate
                         val offsetUnit = getOffsetUnit()
@@ -73,7 +82,6 @@ class MainActivity : AppCompatActivity() {
                         selectedDateTime2.add(offsetUnit, offsetValue)
 
                         updateDateTime(selectedDateTime1, selectedDateTime2)
-                        unitEdit.clearFocus()
                     } else {
                         toast?.cancel()
                         toast = Toast.makeText(this, R.string.Invalid_Date_Format, Toast.LENGTH_SHORT)
@@ -98,8 +106,8 @@ class MainActivity : AppCompatActivity() {
 
         unitEdit.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
+                unitEdit.clearFocus()
                 if (!checkBox.isChecked) {
-                    unitEdit.clearFocus()
                     binding.button.performClick()
                 } else if (handleEditText()) {
                     val enteredValue = unitEdit.text.toString().trim()
@@ -108,6 +116,7 @@ class MainActivity : AppCompatActivity() {
 
                         val enteredDate = dateEdit.text.toString().trim()
                         val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
+
                         try {
                             val parsedDate = sdf.parse(enteredDate)
                             if (parsedDate != null) {
@@ -244,5 +253,49 @@ class MainActivity : AppCompatActivity() {
         val numberRegex = "^[0-9]+$".toRegex()
         return numberRegex.matches(value)
     }
+
+
+    fun isValidDate(date: String): Boolean {
+        val matcher: Matcher = pattern.matcher(date)
+        return if (matcher.matches()) {
+            matcher.reset()
+            if (matcher.find()) {
+                val yearStr = matcher.group(1)!! // Year is guaranteed by the pattern
+                val year = yearStr.toInt()
+                val month = matcher.group(2)!!.toInt() // Month is guaranteed by the pattern
+                val day = matcher.group(3)!!.toInt() // Day is guaranteed by the pattern
+                val hour = matcher.group(4)!!.toInt() // Hour is guaranteed by the pattern
+                val minute = matcher.group(5)!!.toInt() // Minute is guaranteed by the pattern
+
+                // Validate day based on month and leap year (no need for separate checks)
+                if (day !in 1..getDaysInMonth(month, year)) {
+                    return false
+                }
+
+                // Validate hour and minute
+                if (hour !in 0..23 || minute !in 0..59) {
+                    return false
+                }
+
+                true // Valid date format, day within range, and valid hour/minute
+            } else {
+                false // No match found by the pattern
+            }
+        } else {
+            false // String doesn't match the expected format
+        }
+    }
+
+    private fun getDaysInMonth(month: Int, year: Int): Int {
+        return when (month) {
+            1, 3, 5, 7, 8, 10, 12 -> 31
+            4, 6, 9, 11 -> 30
+            2 -> if (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0)) 29 else 28
+            else -> throw IllegalArgumentException("Invalid month value: $month")
+        }
+    }
+
+
+
 
 }

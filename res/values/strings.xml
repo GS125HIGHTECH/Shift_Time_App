@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">KalkulatorPrzesunieciaDaty</string>
+    <string name="app_name">Kalkulator Przesuniecia Daty</string>
     <string name="Button">Wybierz</string>
     <string name="Button2">Zamknij</string>
     <string name="Hint">Wprowadź wartość przesunięcia</string>

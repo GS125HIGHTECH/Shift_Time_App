@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">DateOffsetCalculator</string>
+    <string name="app_name">Date Offset Calculator</string>
     <string name="Button">Choose</string>
     <string name="Button2">Close</string>
     <string name="Hint">Insert shift value</string>
